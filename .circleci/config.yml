@@ -1,8 +1,20 @@
+version: 2
+
 368_config: &368_config
   docker:
     - image: circleci/python:3.7
 
 jobs:
+  build:
+    <<: *368_config
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo pip install -r requirements.txt
+            sudo pip install awscli coverage
+
   deploy-conda:
     <<: *368_config
     steps:
@@ -38,7 +50,15 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - deploy-conda:
+      - build:
           filters:
+            tags:
+              only: /.*/
+      - deploy-conda:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
