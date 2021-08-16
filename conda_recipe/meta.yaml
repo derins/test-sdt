@@ -1,11 +1,11 @@
-{% set name = "solar-data-tools" %}
+{% set name = "solar-data-tools-test" %}
 
 package:
   name: "{{ name|lower }}"
   version: {{ environ.get('VERSION_FROM_GIT_TAG') }}
 
 source:
-  git_url: https://github.com/slacgismo/solar-data-tools
+  git_url: https://github.com/derins/test-sdt
 
 build:
   noarch: python
@@ -34,7 +34,7 @@ requirements:
     - cvxpy
 
 about:
-  home: https://github.com/bmeyers/solar-data-tools
+  home:
   license: BSD
   license_family: BSD
   license_file:
