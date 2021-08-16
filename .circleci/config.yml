@@ -10,16 +10,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Dependencies
-          command: |
-            sudo pip install -r requirements.txt
-            sudo pip install awscli coverage
-
-  deploy-conda:
-    <<: *368_config
-    steps:
-      - checkout
-      - run:
           name: Install the Conda Dependencies
           command: |
             wget https://repo.anaconda.com/miniconda/Miniconda3-4.7.10-Linux-x86_64.sh -O miniconda.sh
@@ -54,11 +44,3 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy-conda:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
