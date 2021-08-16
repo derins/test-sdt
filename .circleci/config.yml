@@ -53,14 +53,6 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy-pypi:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
       - deploy-conda:
           requires:
             - build
