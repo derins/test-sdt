@@ -1,15 +1,4 @@
 {% set name = "solar-data-tools-test" %}
-{% set platform = 'linux' if linux else 'osx' if osx else 'win' %}
-{%
-  set cvxpy_builds = {
-    'osx': {
-      38: 'py38h50d1736_0',
-    },
-    'linux': {
-      37: 'py37h9c2f6ca_0',
-    }
-  }
-%}
 
 package:
   name: "{{ name|lower }}"
