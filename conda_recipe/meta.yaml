@@ -1,4 +1,20 @@
 {% set name = "solar-data-tools-test" %}
+{% set platform = 'linux' if linux else 'osx' if osx else 'win' %}
+{%
+  set cvxpy_builds = {
+    'osx': {
+      36: 'py36h02fde04_1',
+      37: 'py37h622575a_1',
+      38: 'py38h57202bd_1',
+    },
+    'linux': {
+      36: 'py36hbb8311d_1',
+      37: 'py37hf8c3989_1',
+      38: 'py38hfe926b7_1',
+    }
+  }
+%}
+
 
 package:
   name: "{{ name|lower }}"
@@ -21,6 +37,8 @@ requirements:
     - pandas
     - seaborn
     - requests
+    - pvlib-python 0.8.1 {{ cvxpy_builds[platform][py] }}
+    - cvxpy 1.1.15 {{ cvxpy_builds[platform][py] }}
 
   run:
     - python
@@ -30,8 +48,8 @@ requirements:
     - seaborn
     - requests
     - scikit-learn
-    - pvlib-python
-    - cvxpy
+    - pvlib-python 0.8.1 {{ cvxpy_builds[platform][py] }}
+    - cvxpy 1.1.15 {{ cvxpy_builds[platform][py] }}
 
 about:
   home:
