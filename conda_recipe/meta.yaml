@@ -3,14 +3,10 @@
 {%
   set cvxpy_builds = {
     'osx': {
-      36: 'py36h02fde04_1',
-      37: 'py37h622575a_1',
-      38: 'py38h57202bd_1',
+      38: 'py38h50d1736_0',
     },
     'linux': {
-      36: 'py36hbb8311d_1',
-      37: 'py37hf8c3989_1',
-      38: 'py38hfe926b7_1',
+      37: 'py37h9c2f6ca_0',
     }
   }
 %}
@@ -37,7 +33,6 @@ requirements:
     - pandas
     - seaborn
     - requests
-    - pvlib-python 0.8.1 {{ cvxpy_builds[platform][py] }}
     - cvxpy 1.1.15 {{ cvxpy_builds[platform][py] }}
 
   run:
@@ -48,7 +43,6 @@ requirements:
     - seaborn
     - requests
     - scikit-learn
-    - pvlib-python 0.8.1 {{ cvxpy_builds[platform][py] }}
     - cvxpy 1.1.15 {{ cvxpy_builds[platform][py] }}
 
 about:
