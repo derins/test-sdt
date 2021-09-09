@@ -5,7 +5,7 @@ version: 2
     - image: circleci/python:3.7
 
 jobs:
-  build:
+  deploy-conda:
     <<: *368_config
     steps:
       - checkout
@@ -45,8 +45,6 @@ workflows:
             tags:
               only: /.*/
       - deploy-conda:
-              requires:
-                - build
               filters:
                 tags:
                   only: /^v\d+\.\d+\.\d+$/
