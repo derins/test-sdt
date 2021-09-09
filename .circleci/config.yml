@@ -13,18 +13,6 @@ jobs:
           name: Install Dependencies
           command: |
             sudo pip install -r requirements.txt
-            sudo pip install awscli coverage
-      - run:
-          name: Setup Mosek License File
-          command: |
-            sudo mkdir /root/mosek
-            mkdir $HOME/mosek
-            aws s3 cp s3://slac.gismo.ci.artifacts/mosek.license/mosek.lic $HOME/mosek/mosek.lic
-            sudo cp $HOME/mosek/mosek.lic /root/mosek/mosek.lic
-
-      - run:
-          name: Run Unit Tests
-          command: sudo coverage run -m unittest
 
   deploy-conda:
     <<: *368_config
@@ -55,7 +43,7 @@ jobs:
             source /home/circleci/miniconda/etc/profile.d/conda.sh
             conda activate base
             VERSION_FROM_GIT_TAG=`git tag --list "v*[0-9]" --sort=version:refname | tail -1 | cut -c 2-`
-            anaconda upload -u derins  /home/circleci/miniconda/conda-bld/noarch/test-sdt-$VERSION_FROM_GIT_TAG-*.tar.bz2
+            anaconda upload -u derins  /home/circleci/miniconda/conda-bld/noarch/solar-data-tools-test-$VERSION_FROM_GIT_TAG-*.tar.bz2
 
 workflows:
   version: 2
