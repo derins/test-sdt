@@ -10,15 +10,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Dependencies
-          command: |
-            sudo pip install -r requirements.txt
-
-  deploy-conda:
-    <<: *368_config
-    steps:
-      - checkout
-      - run:
           name: Install the Conda Dependencies
           command: |
             wget https://repo.anaconda.com/miniconda/Miniconda3-4.7.10-Linux-x86_64.sh -O miniconda.sh
@@ -36,7 +27,7 @@ jobs:
             conda install anaconda-client
             conda config --set anaconda_upload no
             anaconda login --username $ANACONDA_CLOUD_USERNAME --password $ANACONDA_CLOUD_PASSWORD
-            VERSION_FROM_GIT_TAG=`git tag --list "v*[0-9]" --sort=version:refname | tail -1 | cut -c 2-` conda build . -c conda-forge --numpy 1.16.4
+            VERSION_FROM_GIT_TAG=`git tag --list "v*[0-9]" --sort=version:refname | tail -1 | cut -c 2-` conda build . -c conda-forge
       - run:
           name: Get the output path and upload the package
           command: |
@@ -53,11 +44,3 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy-conda:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
