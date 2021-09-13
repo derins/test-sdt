@@ -6,7 +6,6 @@ version: 2
 
 jobs:
   build:
-
     <<: *368_config
     steps:
       - checkout
